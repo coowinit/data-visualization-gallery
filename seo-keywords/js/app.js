@@ -8,7 +8,7 @@
   const format = n => new Intl.NumberFormat('en-US').format(n);
   $('top-volume').textContent = format(data.top100SearchVolume);
   $('top-count').textContent = format(rows.length);
-  const colors = ['#4795f8','#668ef8','#857cf4','#9985f5','#ad96f7','#c0aff9','#cfc5fb','#dcd7fc'];
+  const colors = ['#347fe8','#4776df','#566ed7','#6267cf','#7061c7','#7a5dbf','#855bb8','#915db0'];
   const state = {query:'', tiles:[]};
   const tooltip = $('tooltip');
   let focusedTile = null;
@@ -70,10 +70,14 @@
       el.style.left=`${d.x/width*100}%`;el.style.top=`${d.y/height*100}%`;
       el.style.width=`${d.w/width*100}%`;el.style.height=`${d.h/height*100}%`;
       el.style.background=colors[Math.min(colors.length-1,Math.floor(i/Math.max(filtered.length/8,1)))];
-      el.style.color=i<Math.ceil(filtered.length*.27)?'#fff':'#243252';
+      el.style.color='#fff';
       const area=d.w*d.h;
-      if(d.w<73||d.h<42||area<4000) el.classList.add('tiny');
-      else if(d.w<130||d.h<75)el.classList.add('small');
+      if(d.w<73||d.h<42||area<4000) {
+        el.classList.add('tiny');
+        if(d.w<42||d.h<24) el.classList.add('micro');
+        // Avoid illegible text in cells smaller than a single character.
+        if(d.w<23||d.h<12) el.classList.add('unlabeled');
+      } else if(d.w<130||d.h<75) el.classList.add('small');
       const title=document.createElement('span');title.className='tile-title';title.textContent=d.keyword;
       const value=document.createElement('span');value.className='tile-value';value.textContent=format(d.volume);
       el.append(title,value);
