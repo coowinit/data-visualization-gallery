@@ -74,8 +74,13 @@
       el.style.background=colors[Math.min(colors.length-1,Math.floor(i/Math.max(filtered.length/8,1)))];
       el.style.color=i<Math.ceil(filtered.length*.27)?'#fff':'#243252';
       const area=d.w*d.h;
-      if(d.w<73||d.h<42||area<4000) el.classList.add('tiny');
-      else if(d.w<130||d.h<75)el.classList.add('small');
+      if(d.w<73||d.h<42||area<4000) {
+        el.classList.add('tiny');
+        // Chinese country labels often fit even when a two-line metric does not.
+        if(d.w<40||d.h<22) el.classList.add('micro');
+        // Under this size, text would be clipped or unreadably narrow.
+        if(d.w<23||d.h<12) el.classList.add('unlabeled');
+      } else if(d.w<130||d.h<75) el.classList.add('small');
       const title=document.createElement('span');title.className='tile-title';title.textContent=d.zh;
       const value=document.createElement('span');value.className='tile-value';value.textContent=format(d.volume);
       el.append(title,value);
