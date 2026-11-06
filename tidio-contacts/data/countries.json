@@ -1,6 +1,6 @@
 {
-  "source": "Tidio CSV 导出数据（2026-11-06）",
-  "metric": "按国家/地区汇总的联系人记录数（非询盘数量）",
+  "source": "国家 / 地区联系记录汇总快照",
+  "metric": "按国家/地区汇总的联系记录数（非已核实的有效询盘数量）",
   "totalRecords": 6017,
   "validCountryRecords": 6016,
   "top100Records": 5889,
