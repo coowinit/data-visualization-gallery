@@ -33,3 +33,6 @@
 .tile.micro .tile-title{font-size:9px;line-height:1.1}
 .tile.unlabeled>*{display:none}
 @media(max-width:520px){.tile.tiny .tile-title{font-size:9px}.tile.micro .tile-title{font-size:8px}}
+
+/* Consistent white lettering on every country tile. */
+.treemap .tile,.treemap .tile .tile-title,.treemap .tile .tile-value{color:#fff}
