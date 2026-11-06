@@ -79,7 +79,7 @@
       const title=document.createElement('span');title.className='tile-title';title.textContent=d.zh;
       const value=document.createElement('span');value.className='tile-value';value.textContent=format(d.volume);
       el.append(title,value);
-      el.setAttribute('aria-label',`${d.zh}，模拟记录数 ${format(d.volume)}。点击复制国家名称`);
+      el.setAttribute('aria-label',`${d.zh}，联系记录数 ${format(d.volume)}。点击复制国家名称`);
       el.title=`${d.zh} · ${format(d.volume)}`;
       el.addEventListener('pointerenter',e=>{focusedTile=el;putTooltip(d,e.clientX,e.clientY)});
       el.addEventListener('pointermove',e=>putTooltip(d,e.clientX,e.clientY));
