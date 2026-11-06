@@ -22,5 +22,14 @@
 @media(max-width:820px){.site{padding:12px 12px 20px}.nav{margin-bottom:12px}.intro{margin-bottom:12px}.visual-panel{padding:10px}.treemap{height:clamp(600px,72vh,880px)}.panel-head{align-items:center}.controls{width:auto}.search-wrap{width:auto;flex:auto}.search{width:min(260px,45vw)}}
 @media(max-width:520px){.site{padding:10px 9px 14px}.nav{margin-bottom:12px}.brand{font-size:12px;gap:6px}.brand-mark{width:26px;height:26px}.nav-links a{font-size:11px;padding:7px 8px}.intro h1{font-size:23px}.subtitle{font-size:11px}.source{font-size:10px}.visual-panel{padding:8px}.panel-head{align-items:stretch}.panel-title h2{font-size:14px}.controls{width:100%}.search-wrap{width:auto;flex:1}.search{width:100%}.treemap{height:clamp(580px,74vh,800px)}.panel-foot{font-size:10px}.bottom-note{font-size:10px}}
 
-/* Tidio independent case */
+/* Country distribution case */
 .tile-title{overflow-wrap:break-word}.tip-en{color:#7788a0;font-size:12px;margin-top:3px}.tip-share{margin-top:7px}
+
+/* Small country tiles: keep labels visible when geometry allows. */
+.tile.tiny{padding:2px 3px;gap:0}
+.tile.tiny .tile-title{display:block;font-size:10px;line-height:1.2;font-weight:750;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;-webkit-line-clamp:unset;max-width:100%}
+.tile.tiny .tile-value{display:none}
+.tile.micro{padding:1px 2px}
+.tile.micro .tile-title{font-size:9px;line-height:1.1}
+.tile.unlabeled>*{display:none}
+@media(max-width:520px){.tile.tiny .tile-title{font-size:9px}.tile.micro .tile-title{font-size:8px}}
