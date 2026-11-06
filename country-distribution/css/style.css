@@ -36,3 +36,6 @@
 
 /* Consistent white lettering on every country tile. */
 .treemap .tile,.treemap .tile .tile-title,.treemap .tile .tile-value{color:#fff}
+
+/* Apply text color to country tile labels at all sizes. */
+.treemap .tile .tile-title,.treemap .tile .tile-value{color:#fff !important}
