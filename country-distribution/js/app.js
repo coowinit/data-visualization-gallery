@@ -81,8 +81,8 @@
         // Under this size, text would be clipped or unreadably narrow.
         if(d.w<23||d.h<12) el.classList.add('unlabeled');
       } else if(d.w<130||d.h<75) el.classList.add('small');
-      const title=document.createElement('span');title.className='tile-title';title.textContent=d.zh;
-      const value=document.createElement('span');value.className='tile-value';value.textContent=format(d.volume);
+      const title=document.createElement('span');title.className='tile-title';title.textContent=d.zh;title.style.color='#fff';
+      const value=document.createElement('span');value.className='tile-value';value.textContent=format(d.volume);value.style.color='#fff';
       el.append(title,value);
       el.setAttribute('aria-label',`${d.zh}，联系记录数 ${format(d.volume)}。点击复制国家名称`);
       el.title=`${d.zh} · ${format(d.volume)}`;
