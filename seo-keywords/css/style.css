@@ -21,3 +21,17 @@
 .bottom-note{font-size:11px;margin:9px 2px 0;line-height:1.5}
 @media(max-width:820px){.site{padding:12px 12px 20px}.nav{margin-bottom:12px}.intro{margin-bottom:12px}.visual-panel{padding:10px}.treemap{height:clamp(600px,72vh,880px)}.panel-head{align-items:center}.controls{width:auto}.search-wrap{width:auto;flex:auto}.search{width:min(260px,45vw)}}
 @media(max-width:520px){.site{padding:10px 9px 14px}.nav{margin-bottom:12px}.brand{font-size:12px;gap:6px}.brand-mark{width:26px;height:26px}.nav-links a{font-size:11px;padding:7px 8px}.intro h1{font-size:23px}.subtitle{font-size:11px}.source{font-size:10px}.visual-panel{padding:8px}.panel-head{align-items:stretch}.panel-title h2{font-size:14px}.controls{width:100%}.search-wrap{width:auto;flex:1}.search{width:100%}.treemap{height:clamp(580px,74vh,800px)}.panel-foot{font-size:10px}.bottom-note{font-size:10px}}
+
+/* Keyword treemap: more labels, white text and higher-contrast blue/violet tiles. */
+.treemap .tile{color:#fff;padding:clamp(5px,.65vw,10px);gap:3px}
+.treemap .tile-title{color:#fff;font-size:clamp(10px,.82vw,13px);line-height:1.25;font-weight:750;overflow-wrap:break-word;word-break:normal;-webkit-line-clamp:3}
+.treemap .tile-value{color:#fff;font-size:clamp(9px,.72vw,11px);opacity:.92}
+.treemap .tile.small{padding:4px}
+.treemap .tile.small .tile-title{font-size:10px;line-height:1.18;-webkit-line-clamp:2}
+.treemap .tile.tiny{padding:2px 3px;gap:0}
+.treemap .tile.tiny .tile-title{display:block;color:#fff;font-size:9px;line-height:1.15;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;-webkit-line-clamp:unset;max-width:100%}
+.treemap .tile.tiny .tile-value{display:none}
+.treemap .tile.micro{padding:1px 2px}
+.treemap .tile.micro .tile-title{font-size:8px;line-height:1.1}
+.treemap .tile.unlabeled>*{display:none}
+@media(max-width:520px){.treemap .tile-title{font-size:10px}.treemap .tile.small .tile-title{font-size:9px}.treemap .tile.tiny .tile-title{font-size:8px}}
