@@ -1,0 +1,23 @@
+(()=>{'use strict';
+const data=window.GDP_RANKING_DATA,board=document.getElementById('treemap');if(!data||!board)return;
+const $=id=>document.getElementById(id),rows=data.countries.map(x=>({...x,volume:x.gdpMillions})),colors=['#347fe8','#4776df','#566ed7','#6267cf','#7061c7','#7a5dbf','#855bb8','#915db0'];
+const fmt=n=>n>=1000000?(n/1000000).toFixed(2)+' 万亿美元':(n/100).toLocaleString('zh-CN',{maximumFractionDigits:1})+' 亿美元';
+$('top-volume').textContent=fmt(data.top100TotalMillions);
+let query='',tooltip=$('tooltip'),raf=0;
+function layout(items,W,H){let queue=items.map(x=>({...x,area:x.volume/items.reduce((s,d)=>s+d.volume,0)*W*H})),b={x:0,y:0,w:W,h:H},result=[];
+const score=(r,s)=>{if(!r.length)return Infinity;let sum=r.reduce((x,d)=>x+d.area,0),mx=Math.max(...r.map(d=>d.area)),mn=Math.min(...r.map(d=>d.area));return Math.max(s*s*mx/sum/sum,sum*sum/s/s/mn)};
+while(queue.length&&b.w>0&&b.h>0){let row=[],side=Math.min(b.w,b.h);while(queue.length&&(!row.length||score([...row,queue[0]],side)<=score(row,side)))row.push(queue.shift());
+let area=row.reduce((a,d)=>a+d.area,0);if(b.w>=b.h){let w=Math.min(b.w,area/b.h),y=b.y;row.forEach((d,i)=>{let h=i===row.length-1?b.y+b.h-y:d.area/w;result.push({...d,x:b.x,y,w,h});y+=h});b.x+=w;b.w=Math.max(0,b.w-w)}else{let h=Math.min(b.h,area/b.w),x=b.x;row.forEach((d,i)=>{let w=i===row.length-1?b.x+b.w-x:d.area/h;result.push({...d,x,y:b.y,w,h});x+=w});b.y+=h;b.h=Math.max(0,b.h-h)}}
+return result}
+function hide(){tooltip.classList.remove('visible');tooltip.setAttribute('aria-hidden','true')}
+function show(d,x,y){$('tip-keyword').textContent=d.zh;$('tip-en').textContent=d.en;$('tip-volume').textContent=fmt(d.volume);$('tip-rank').textContent='#'+d.rank;$('tip-share').textContent=d.share.toFixed(2)+'%';tooltip.classList.add('visible');tooltip.setAttribute('aria-hidden','false');let p=12;tooltip.style.left=Math.max(p,Math.min(innerWidth-tooltip.offsetWidth-p,x+12))+'px';tooltip.style.top=Math.max(p,Math.min(innerHeight-tooltip.offsetHeight-p,y+15))+'px'}
+function render(){hide();let selected=rows.filter(x=>(x.zh+' '+x.en+' '+x.iso3+' '+x.rank).toLocaleLowerCase().includes(query));$('visible-count').textContent='当前显示 '+selected.length+' / '+rows.length+' 个国家 / 经济体';board.replaceChildren();if(!selected.length){let e=document.createElement('div');e.className='empty';e.textContent='没有匹配的国家或经济体。';board.append(e);return}
+let W=board.clientWidth,H=board.clientHeight;if(!W||!H)return;let frag=document.createDocumentFragment();
+layout(selected,W,H).forEach((d,i)=>{let e=document.createElement('button');e.type='button';e.className='tile';e.style.cssText='left:'+(d.x/W*100)+'%;top:'+(d.y/H*100)+'%;width:'+(d.w/W*100)+'%;height:'+(d.h/H*100)+'%;background:'+colors[Math.min(7,Math.floor(i/Math.max(selected.length/8,1)))];e.style.color='#fff';
+if(d.w<73||d.h<42||d.w*d.h<4000){e.classList.add('tiny');if(d.w<42||d.h<24)e.classList.add('micro');if(d.w<23||d.h<12)e.classList.add('unlabeled')}else if(d.w<130||d.h<75)e.classList.add('small');
+let name=document.createElement('span');name.className='tile-title';name.textContent=d.zh;name.style.color='#fff';let val=document.createElement('span');val.className='tile-value';val.textContent=fmt(d.volume);val.style.color='#fff';e.append(name,val);e.title=d.zh+' · '+fmt(d.volume);e.setAttribute('aria-label','第'+d.rank+'名 '+d.zh+'，GDP '+fmt(d.volume));
+e.addEventListener('pointerenter',ev=>show(d,ev.clientX,ev.clientY));e.addEventListener('pointermove',ev=>show(d,ev.clientX,ev.clientY));e.addEventListener('pointerleave',hide);e.addEventListener('focus',()=>{let b=e.getBoundingClientRect();show(d,b.left+b.width/2,b.top+20)});e.addEventListener('blur',hide);
+e.addEventListener('click',async()=>{try{if(navigator.clipboard&&window.isSecureContext){await navigator.clipboard.writeText(d.zh);$('status').textContent='已复制：'+d.zh}else $('status').textContent='国家：'+d.zh}catch{$('status').textContent='国家：'+d.zh}});frag.append(e)});board.append(frag)}
+$('keyword-search').addEventListener('input',e=>{query=e.target.value.trim().toLocaleLowerCase();render()});$('reset-search').addEventListener('click',()=>{$('keyword-search').value='';query='';render();$('keyword-search').focus()});
+if(typeof ResizeObserver!=='undefined')new ResizeObserver(()=>{cancelAnimationFrame(raf);raf=requestAnimationFrame(render)}).observe(board);else window.addEventListener('resize',render);document.addEventListener('keydown',e=>{if(e.key==='Escape')hide()});render();
+})();

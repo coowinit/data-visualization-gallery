@@ -9,6 +9,7 @@
 - `seo-keywords/decking.html`：Composite Decking，Top 100 关键词
 - `seo-keywords/cladding.html`：Composite Cladding，Top 100 关键词
 - `country-distribution/index.html`：国家 / 地区联系记录分布 Treemap
+- `gdp-ranking/index.html`：2024 全球 GDP Top 100 Treemap
 
 **本地使用：** 下载或克隆仓库，直接双击根目录 `index.html`。当前案例使用本地 JS 数据文件，无需安装依赖或启动服务。**线上使用：** 在 GitHub Pages 中选择仓库部署源，入口即根目录 `index.html`。
 
@@ -18,6 +19,7 @@
 | --- | --- | --- |
 | SEO 关键词搜索量 | Treemap（矩形树图） | Decking / Cladding 两组独立页面；Top 100；关键词搜索、悬停详情、点击复制（受浏览器权限限制） |
 | 国家 / 地区联系记录分布 | Treemap（矩形树图） | Top 100 国家 / 地区；联系记录数量与占比；中英文搜索、悬停详情和点击复制 |
+| 全球 GDP Top 100 | Treemap（矩形树图） | 2024 年名义 GDP；中文名称、排名及占比；中英文搜索和悬停详情 |
 
 > 后续可以增加询盘统计、网站流量等独立案例，但未完成的功能不作为当前仓库能力。
 
@@ -45,6 +47,13 @@ data-visualization-gallery/
 │   └── data/
 │       ├── countries.js         # 本地打开 HTML 使用
 │       └── countries.json       # 可复用的纯数据副本
+├── gdp-ranking/                 # 2024 名义 GDP
+│   ├── index.html
+│   ├── css/style.css
+│   ├── js/app.js
+│   └── data/
+│       ├── gdp.js
+│       └── gdp.json
 └── README.md
 ```
 
@@ -69,6 +78,15 @@ data-visualization-gallery/
 - 矩形面积与国家 / 地区的联系记录数成比例；悬停显示中文名称、英文名称、数量和占比，支持中英文搜索。
 - 公开数据仅包含国家 / 地区名称、记录数及占比等汇总信息，不包含客户邮箱、姓名、城市或沟通内容。
 - `countries.js` 用于支持本地双击打开；`countries.json` 作为结构化数据副本。两者更新时必须同步。
+
+## 2024 全球 GDP Top 100 案例说明
+
+- 数据：世界银行 World Development Indicators，指标 `NY.GDP.MKTP.CD`（GDP, current US$），**2024 年名义 GDP，现价美元**，并非购买力平价（PPP）或人均 GDP。
+- 按 GDP 降序展示 100 个国家与经济体，包括世界银行单列的部分地区经济体，因此不等于 100 个主权国家。GDP 显示单位会在“万亿美元”和“亿美元”之间自动切换。
+- 数据取自 [2024 年 GDP 排名 CSV](https://github.com/nationdata-org/world-gdp/blob/main/data/world/world-gdp-ranking-2024.csv)（World Bank WDI 整理数据），已与[世界银行官方 2024 排名](https://datacatalogfiles.worldbank.org/ddh-published/0038130/DR0046441/GDP.pdf)核对头部数据。数据后续可能修订；本页面为固定的 2024 年快照。
+- 矩形面积按名义 GDP 绘制；悬停显示中英文名称、GDP、排名、占 Top 100 GDP 合计的百分比。该百分比不是全球 GDP 份额。小矩形可通过悬停获取详细信息。
+- 数据许可：**CC BY 4.0**。使用时保留世界银行的数据归属说明。
+- `gdp.js` 负责支持直接双击本地 HTML；`gdp.json` 为结构化副本，两者更新时需要同步。
 
 ## 增加一个新案例
 
